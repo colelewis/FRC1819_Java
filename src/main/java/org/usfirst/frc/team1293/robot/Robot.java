@@ -23,7 +23,7 @@ public class Robot extends IterativeRobot {
 	private Spark leftS, rightS;
 	private SpeedControllerGroup leftDrive, rightDrive;
 	private Solenoid sol;
-	private I2C arduino;
+	private I2C arduino; //arduino to be interfaced with, holds pixycam
 
 	// building command in terminal: gradlew build -Dorg.gradle.java.home="C:\Program Files\Java\jdk-11.0.2"
 	// deploying command in terminal: gradlew deploy -PteamNumber=1293 --offline -Dorg.gradle.java.home="C:\Program Files\Java\jdk-11.0.2"
