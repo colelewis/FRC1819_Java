@@ -51,7 +51,6 @@ public class Robot extends IterativeRobot {
 		} else {
 			sol.set(false);
 		}*/
-
 		Scheduler.getInstance().run();
 	}	/*@Overridepublic void testPeriodic() {0-
 		byte[] sendData = "This text IS the Data.".getBytes();
