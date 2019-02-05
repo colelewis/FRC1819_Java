@@ -23,7 +23,7 @@ public class Robot extends IterativeRobot {
 	private XboxController joystick;
 	private Hand leftH, rightH;
 	private Spark leftS, rightS;
-	private SpeedControllerGroup leftDrive, rightDrive;
+	private TalonSRX talon;
 	private Solenoid sol;
 	private I2C arduino; //arduino to be interfaced with, holds pixycam
 
@@ -34,6 +34,7 @@ public class Robot extends IterativeRobot {
 		joystick = new XboxController(0);
 		leftS = new Spark(1);
 		rightS = new Spark(0);
+		talon = new TalonSRX();
 		myRobot = new DifferentialDrive(leftS, rightS);
 		arduino = new I2C(I2C.Port.kOnboard, 8);
 		sol = new Solenoid(0);
