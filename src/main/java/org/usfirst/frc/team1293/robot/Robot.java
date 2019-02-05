@@ -1,29 +1,22 @@
 package org.usfirst.frc.team1293.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	private DifferentialDrive myRobot;
 	private XboxController joystick;
 	private Hand leftH, rightH;
 	private Spark leftS, rightS;
-	private TalonSRX talon;
+	private Talon talon;
 	private Solenoid sol;
 	private I2C arduino; //arduino to be interfaced with, holds pixycam
 
@@ -34,7 +27,7 @@ public class Robot extends IterativeRobot {
 		joystick = new XboxController(0);
 		leftS = new Spark(1);
 		rightS = new Spark(0);
-		talon = new TalonSRX();
+		talon = new Talon(10);
 		myRobot = new DifferentialDrive(leftS, rightS);
 		arduino = new I2C(I2C.Port.kOnboard, 8);
 		sol = new Solenoid(0);
