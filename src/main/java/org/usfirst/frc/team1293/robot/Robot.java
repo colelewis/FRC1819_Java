@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -20,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	private DifferentialDrive myRobot;
 	private XboxController joystick;
+	private Hand leftH, rightH;
 	private Spark leftS, rightS;
 	private SpeedControllerGroup leftDrive, rightDrive;
 	private Solenoid sol;
@@ -32,32 +34,31 @@ public class Robot extends IterativeRobot {
 		joystick = new XboxController(0);
 		leftS = new Spark(1);
 		rightS = new Spark(0);
-		leftDrive = new SpeedControllerGroup(leftS);
-		rightDrive = new SpeedControllerGroup(rightS);
-		myRobot = new DifferentialDrive(leftDrive, rightDrive);
+		myRobot = new DifferentialDrive(leftS, rightS);
 		arduino = new I2C(I2C.Port.kOnboard, 8);
 		sol = new Solenoid(0);
-
 		CameraServer.getInstance().startAutomaticCapture(0);
 		CameraServer.getInstance().startAutomaticCapture(1);
 	}
 
-	@Override
+	
 	public void teleopPeriodic() {
-		//myRobot.tankDrive(joystick.getX(), joystick.getY());
-		myRobot.arcadeDrive(joystick.getRawAxis(1), joystick.getRawAxis(3));
-		/*if (aButton.get()) {
-			sol.set(true);
-		} else {
-			sol.set(false);
-		}*/
+		myRobot.arcadeDrive(joystick.getY(Hand.kLeft), joystick.getX(Hand.kRight));
+		
+		if (joystick.getAButton()) {
+			testPeriodic();
+		} 
 		Scheduler.getInstance().run();
-	}	/*@Overridepublic void testPeriodic() {0-
+	}	
+	
+	
+	@Override
+	public void testPeriodic() {
 		byte[] sendData = "This text IS the Data.".getBytes();
 		byte[] receiveData = new byte[12];
 		arduino.transaction(sendData, sendData.length, receiveData, receiveData.length);
 		System.out.println("Receieved: " + new String(receiveData, 0, receiveData.length));
-	}*/
+	}
 
 	public void autonomousInit() {
 		// autonomous commands
