@@ -2,13 +2,10 @@ package org.usfirst.frc.team1293.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.CANTalon;
-import com.ctre.CTRLogger;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -19,7 +16,6 @@ public class Robot extends IterativeRobot {
 	private Hand leftH, rightH;
 	private Spark leftS, rightS;
 	private Talon talon;
-	private CANTalon talonsrx;
 	private Solenoid sol;
 	
 	// building command in terminal: gradlew build -Dorg.gradle.java.home="C:\Program Files\Java\jdk-11.0.2"
