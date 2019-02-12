@@ -19,8 +19,8 @@ public class Robot extends IterativeRobot {
 	private DifferentialDrive myRobot;
 	private XboxController joystick;
 	private Hand leftH, rightH;
-	private Spark leftS, rightS;
-	private TalonSRX talonsrx;
+	private Talon leftS, rightS;
+	private TalonSRX talonsrx_arm, talonsrx_roller;
 	private Solenoid sol;
 	private SerialPort arduino;
 
@@ -31,14 +31,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		joystick = new XboxController(0);
-		leftS = new Spark(1);
-		rightS = new Spark(0);
+		leftS = new Talon(1);
+		rightS = new Talon(0);
 
-		arduino = new SerialPort(19200, SerialPort.Port.kUSB);
-
-
-		talonsrx = new TalonSRX(10);
+		talonsrx_arm = new TalonSRX(10);
 		double testPosition1;
+
+		talonsrx_roller = new TalonSRX(20);
 
 		myRobot = new DifferentialDrive(leftS, rightS);
 		sol = new Solenoid(0);
@@ -46,18 +45,13 @@ public class Robot extends IterativeRobot {
 		CameraServer.getInstance().startAutomaticCapture(1);
 	}
 
-	public void testPeriodic() {
-		byte[] sendData = "This text IS the Data.".getBytes();
-		byte[] receiveData = new byte[12];
-		arduino.transaction(sendData, sendData.length, receiveData, receiveData.length);
-		System.out.println("Receieved: " + new String(receiveData, 0, receiveData.length));
-	}
-
 	public void teleopPeriodic() {
 		myRobot.arcadeDrive(joystick.getY(Hand.kLeft), joystick.getX(Hand.kRight));
 		
 		if (joystick.getAButton()) {
-			System.out.println(talonsrx.getSelectedSensorPosition());
+			System.out.println(talonsrx_arm.getSelectedSensorPosition());
+
+			testPeriodic();
 			
 		} 
 		Scheduler.getInstance().run();
