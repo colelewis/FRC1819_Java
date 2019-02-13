@@ -49,10 +49,22 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopPeriodic() {
-		myRobot.arcadeDrive(joystick.getY(Hand.kLeft), joystick.getX(Hand.kRight));
 		double inspeed = joystick.getTriggerAxis(Hand.kLeft) * -0.5;
 		double outspeed = joystick.getTriggerAxis(Hand.kLeft) * 0.5;
+		int x = 0;
+
+		if (joystick.getXButtonPressed()) {
+			x++;
+		}
+
+		if (x % 2 == 0) {
+			myRobot.arcadeDrive(joystick.getY(Hand.kLeft), joystick.getX(Hand.kRight)); //sicko mode
+		}
+		else {
+			myRobot.arcadeDrive(joystick.getY(Hand.kLeft) * 0.6, joystick.getX(Hand.kRight) * 0.6);
+		}
 		
+
 		if (joystick.getAButton()) {
 				talonsrx_arm.set(ControlMode.PercentOutput, inspeed);
 		}
@@ -67,7 +79,7 @@ public class Robot extends IterativeRobot {
 		}
 
 		talonsrx_arm.getFaults(f);
-		if (joystick.getXButtonPressed() ) {
+		if (joystick.getBackButtonPressed() ) {
 			System.out.println("Sensor Velocity: " + talonsrx_arm.getSelectedSensorVelocity());
 			System.out.println("Sensor Position: " + talonsrx_arm.getSelectedSensorPosition());
 			System.out.println("Out %: " + talonsrx_arm.getMotorOutputPercent());
