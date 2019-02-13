@@ -53,11 +53,14 @@ public class Robot extends IterativeRobot {
 		double inspeed = joystick.getTriggerAxis(Hand.kLeft) * -0.5;
 		double outspeed = joystick.getTriggerAxis(Hand.kLeft) * 0.5;
 		
-		if (joystick.getAButtonPressed()) {
-			talonsrx_arm.set(ControlMode.PercentOutput, inspeed);
+		if (joystick.getAButton()) {
+				talonsrx_arm.set(ControlMode.PercentOutput, inspeed);
 		}
-		else if (joystick.getBButtonPressed()) {
-			talonsrx_arm.set(ControlMode.PercentOutput, outspeed);
+		else if (joystick.getBButton()) {
+				talonsrx_arm.set(ControlMode.PercentOutput, outspeed);
+		}
+		else if (joystick.getYButton()) {
+				talonsrx_roller.set(ControlMode.PercentOutput, inspeed);
 		}
 		else {
 			talonsrx_arm.setSelectedSensorPosition(0);
